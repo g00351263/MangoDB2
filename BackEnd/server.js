@@ -2,6 +2,23 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+
+
+var mongoDB = 'mongodb://raja_pk_pk:2525154Abcde@ds239873.mlab.com:39873/rajamangodb';
+mongoose.connect(mongoDB);
+
+//
+var Schema = mongoose.Schema;
+
+var postSchema = new Schema({
+    title: String,
+    content: String
+})
+
+var PostData = mongoose.model(post, postSchema);
+
 
 //Here we are configuring express to use body-parser as middle-ware. 
 app.use(bodyParser.urlencoded({ extended: false })); 
