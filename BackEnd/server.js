@@ -17,7 +17,7 @@ var postSchema = new Schema({
     content: String
 })
 
-var PostData = mongoose.model(post, postSchema);
+var PostData = mongoose.model('post',postSchema);
 
 
 //Here we are configuring express to use body-parser as middle-ware. 
@@ -45,6 +45,13 @@ app.post('/api/posts', function(req, res){
     console.log("post successful");
     console.log(req.body.title);
     console.log(req.body.content);
+
+    PostData.create({
+        title:req.body.title,
+        content: req.body.content
+    });
+
+    console.log("Item added to DB"); 
 })
 
 app.get('/api/posts', function(req, res){
