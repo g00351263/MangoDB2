@@ -6,18 +6,18 @@ var mongoose = require('mongoose');
 
 
 
-var mongoDB = 'mongodb://raja_pk_pk:2525154Abcde@ds239873.mlab.com:39873/rajamangodb';
-mongoose.connect(mongoDB);
+var mongoDB = 'mongodb://raja_pk_pk:2525154Abcde@ds239873.mlab.com:39873/rajamangodb'; // api key
+mongoose.connect(mongoDB);  // connection to mangoDB with express
 
 //
-var Schema = mongoose.Schema;
+var Schema = mongoose.Schema; // for every model
 
-var postSchema = new Schema({
+var postSchema = new Schema({ // schema related to database
     title: String,
     content: String
-})
+});
 
-var PostData = mongoose.model('post',postSchema);
+var PostData = mongoose.model('post',postSchema);  // PostModel to be used//
 
 
 //Here we are configuring express to use body-parser as middle-ware. 
@@ -42,35 +42,24 @@ app.get('/', function (req, res) {
 })
 
 app.post('/api/posts', function(req, res){
-    console.log("post successful");
+    console.log("post successful"); /////////////console window//////////////
     console.log(req.body.title);
     console.log(req.body.content);
 
-    PostData.create({
-        title:req.body.title,
+    PostData.create({ // PostModel in Martins Lab//
+        title:   req.body.title,
         content: req.body.content
     });
 
-    console.log("Item added to DB"); 
+    console.log("Item added to DB"); ////////////Console Window//////////////
 })
 
-app.get('/api/posts', function(req, res){
+app.get('/api/posts', function(req, res){ // posting on website//
 
-    const posts = 
-    [
-        { 
-            "id": "fadf12421l", 
-            "title": "First server-side post", 
-            "content": "This is coming from the server" 
-        }, 
-        { 
-            "id": "ksajflaj132", 
-            "title": "Second server-side post", 
-            "content": "This is coming from the server!" 
-        }
-    ];
+    PostData.find(function(err,data){    
 
-    res.status(200).json({posts:posts})
+        res.json(data);
+    })
 })
 
 

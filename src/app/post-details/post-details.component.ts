@@ -14,10 +14,10 @@ export class PostDetailsComponent implements OnInit {
 
   constructor(private ps:PostService){}
 
-  ngOnInit(){
-    //this.posts = this.ps.getPosts();
+  ngOnInit(){  // for posting on site//
+  
     this.ps.getPostsData().subscribe(data => {
-        this.posts = data.posts;
+        this.posts = data;
     });
 
 
